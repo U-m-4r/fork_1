@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend # Path to the hello-service directory
+    ports:
+      - "5000:5000" # Expose the hello-service on port 5000
+    networks:
+      - app-network 
+      
+  frontend:
+    build:
+      context: ./frontend # Path to the frontend directory
+    ports:
+      - "5001:5001" # Expose the frontend on port 5001
+    networks:
+      - app-network
+    depends_on:
+      - backend # Ensure hello-service starts first
+networks:
+  app-network:
+    driver: bridge
